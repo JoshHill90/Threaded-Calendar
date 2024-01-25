@@ -7,11 +7,12 @@ let todayIs = ""
 const site = "http://127.0.0.1:8000/";
 const calURL = site + "api/v1/calendar/";
 let mvSet = [];
+let wvSet = []
 const toggleCheck = document.getElementById('bauble_check');
 var d1 = 0
 var d2 = 1
 var d3 = 2
-
+let setMonth = ''
 const getDate = document.getElementById('getDate')
 let currentMonth = ''
 let currentYeah = ''
@@ -84,12 +85,12 @@ function getGivenDate(givenYear, givenMonth) {
 function calendarGen(calData, monthin) {
     const year_set = calData.year;
 	currentMonth = monthin;
-	const setMonth = calData.month1
+	setMonth = calData.month1
 	currentYeah = calData.cal_date.slice(0, 4)
 
     const calendarSet = calData.cal;
     mvSet = [];
-	var wvSet = [];
+	wvSet = [];
 	const dateBannaer = document.getElementById('calDate')
 	dateBannaer.innerHTML = currentYeah + " " + setMonth;
 
@@ -117,6 +118,7 @@ function calendarGen(calData, monthin) {
 			wvSet.push(day.day);
         }
     }
+	console.log(wvSet)
 	// loops over the month view set and places the days in the claendar lables.
 	// it also will darken the days outsode of the month, to fill in the ends and highlight todays date
 	mvSet.forEach((day, index) => {
@@ -147,7 +149,7 @@ function calendarGen(calData, monthin) {
 			dayDiv.classList.remove('mv-label');
 		}
 	});
-	weekViewFunctions(wvSet, setMonth);
+	weekViewFunctions();
 
 }
 
@@ -202,24 +204,106 @@ function resetButtonState() {
 // week view calendar genrator, fills in the dates and highlights for the week view. 
 
 function nextDay(){
+	++ d1;
+	++ d2;
+	++ d3;
+	const wvMonthSet = getMonthWVSet()
+	if (wvMonthSet[d3] == 1) {
+        let nextMonthNum = parseInt(currentMonth) + 1;
+		if (currentMonth === 12) {
+			let nextYear = parseInt(currentYeah) + 1;
+			let nextM = 1;
+			//console.log(nextYear, nextM, 'next-year');
+			getGivenDate(nextYear, nextM);
+			d1 = 0;
+			d2 = 1;
+			d3 = 2;
+		} else {
+			getGivenDate(currentYeah, nextMonthNum);
+			d1 = 0;
+			d2 = 1;
+			d3 = 2;
+		}
+
+    } else {
+		
+		weekViewFunctions();
+	}
 
 }
 
 function previousDay(){
-	
+	-- d1;
+	-- d2;
+	-- d3;
+	const wvMonthSet = getMonthWVSet()
+	if (wvMonthSet[d2] == 1) {
+        let lastMonthNum = parseInt(currentMonth) - 1;
+		if (currentMonth == 1 || currentMonth == "01") {
+			var lastYear = parseInt(currentYeah) - 1;
+			var lastM = 12;
+			console.log(lastYear, lastM, 'last-year');
+			let lastDayNum = lastDayWVSet()
+
+			d1 = lastDayNum - 3;
+			d2 = lastDayNum - 2;
+			d3 = lastDayNum - 1;
+			getGivenDate(lastYear, lastM);
+
+		} else {		
+			let lastDayNum = lastDayWVSet()
+
+			d1 = lastDayNum - 3;
+			d2 = lastDayNum - 2;
+			d3 = lastDayNum - 1;
+			console.log(lastDayNum);
+			getGivenDate(currentYeah, lastMonthNum);
+
+		}
+    } else {
+		
+		weekViewFunctions();
+	}
 }
 
-function weekViewFunctions(wvSet, setMonth){
 
+function weekViewFunctions(){
+	const yearLabel = document.getElementById('calYear')
 	const day1Label = document.getElementById('w1l');
 	const day2Label = document.getElementById('w2l');
 	const day3Label = document.getElementById('w3l');
-
-	var month_start = wvSet.indexOf(1)
-	var wvMonthSet = wvSet.slice(month_start)
-	
-	day1Label.innerHTML = setMonth + ' ' + wvMonthSet[d1]
-	day2Label.innerHTML = setMonth + ' ' + wvMonthSet[d2]
-	day3Label.innerHTML = setMonth + ' ' + wvMonthSet[d3]
+	const wvMonthSet = getMonthWVSet()
+	yearLabel.innerHTML = currentYeah
+	day1Label.innerHTML = setMonth + ' ' + wvMonthSet[d1];
+	day2Label.innerHTML = setMonth + ' ' + wvMonthSet[d2];
+	day3Label.innerHTML = setMonth + ' ' + wvMonthSet[d3];
 
 }
+
+function getMonthWVSet() {
+	var month_start = wvSet.indexOf(1);
+	var wvMonthSet = wvSet.slice(month_start);
+	return wvMonthSet;
+}
+
+function lastDayWVSet() {
+	var month_end = wvSet.lastIndexOf(1);
+	console.log(month_end)
+	return month_end;
+}
+
+
+//function weekViewFunctions(wvSet, setMonth){
+//
+//	const day1Label = document.getElementById('w1l');
+//	const day2Label = document.getElementById('w2l');
+//	const day3Label = document.getElementById('w3l');
+//
+//	var month_start = wvSet.indexOf(1)
+//	var wvMonthSet = wvSet.slice(month_start)
+//	
+//	day1Label.innerHTML = setMonth + ' ' + wvMonthSet[d1]
+//	day2Label.innerHTML = setMonth + ' ' + wvMonthSet[d2]
+//	day3Label.innerHTML = setMonth + ' ' + wvMonthSet[d3]
+//
+//}
