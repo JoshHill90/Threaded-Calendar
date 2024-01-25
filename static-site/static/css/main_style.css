@@ -1,0 +1,102 @@
+/*font import*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+/*variable*/
+:root{
+  --text-color:rgb(240, 240, 240);
+  --text-color-secondary:#797979;
+  --bg-color-secondary:linear-gradient(62deg,#2C2C2C, #212121);
+  --bg-shadow:-6px -6px 5px #171717, 6px 6px 5px #414141;;
+  --bg-color-nav:#494949;
+  --bg-color-opec:rgba(29, 29, 29, 0.521);  
+
+  --h1: 26px;
+  --p: 14px;
+  --np:36px;
+
+  --lingrand: linear-gradient(123deg, #00BF72, #008F56, #547509, #2A3B05, #00273D, #003A5C, #004d7a);
+
+
+  --bg-1:#CACACA;
+  --bg-2:#959595;
+  --bg-3:#616161;
+  --bg-4:#2C2C2C;
+  --bg-5:#212121;
+  --bg-6:#161616;
+  --bg-7:#0B0B0B;
+
+  --mc-1:#BFEFDC;
+  --mc-2:#80DFB9;
+  --mc-3:#40CF95;
+  --mc-4:#00BF72;
+  --mc-5:#008F56;
+  --mc-6:#006039;
+  --mc-7:#00301C;
+
+  --mc2-1:#E9FAC4;
+  --mc2-2:#D3F589;
+  --mc2-3:#BEF04D;
+  --mc2-4:#a8eb12;
+  --mc2-5:#7EB00E;
+  --mc2-6:#547509;
+  --mc2-7:#2A3B05;
+
+  --mc3-1:#BFD3DE;
+  --mc3-2:#80A6BD;
+  --mc3-3:#407A9B;
+  --mc3-4:#004d7a;
+  --mc3-5:#003A5C;
+  --mc3-6:#00273D;
+  --mc3-7:#00131E;
+}
+
+/* --------------------------------
+Topography
+--------------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+.body-main {
+  color: var(--bg-7);
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  display: block;
+  margin: none;
+  padding: 0;
+  background-color: var(--bg-4);                         
+}
+
+.section {
+  height: 90vh;
+}
+
+
+/* --------------------------------
+Topography
+--------------------------------*/
+.p-p {
+  color: var(--bg-7);
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.p-l {
+  color: var(--bg-1);
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* --------------------------------
+Tools and useful stuff
+--------------------------------*/
+
+.roller {
+  height: auto;
+	overflow: auto;
+}

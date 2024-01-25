@@ -1,0 +1,20 @@
+/* Firefox */
+*{
+    scrollbar-width: auto;
+    scrollbar-color: var(--mc-5) var(--mc-2);
+}
+
+/* Other browsers */
+*::-webkit-scrollbar{
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track{
+    background: var(--bg-5);
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: var(--mc-4);
+    border-radius: 13px;
+    border: 3px outset var(--mc-6);
+}
