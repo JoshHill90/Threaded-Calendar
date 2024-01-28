@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'calendar_project.urls'
-CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:5500"]
+CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:5500", "http://127.0.0.1:5501"]
 #CORS_ORIGIN_WHITELIST = [
 #    'https://softsubversion.com',
 #    'http://softsubversion.com'

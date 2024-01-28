@@ -15,7 +15,7 @@ var d3 = 2
 let setMonth = ''
 const getDate = document.getElementById('getDate')
 let currentMonth = ''
-let currentYeah = ''
+let currentYear = ''
 
 // ------------ onload functions ----------------//
 
@@ -79,6 +79,39 @@ function getGivenDate(givenYear, givenMonth) {
 		calendarGen(calData, givenMonth);
 	});
 } 
+// api Get for a weekview
+function getWVDate(givenYear, givenMonth) {
+	fetch((calURL + givenYear + "/" + givenMonth + "/"), {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		},
+	})
+
+	.then(response => response.json())
+	.then(calData => {
+		wvSet = [];
+		MounthWV(calData, givenMonth)
+
+	});
+} 
+
+function getPreWVDate(givenYear, givenMonth) {
+	fetch((calURL + givenYear + "/" + givenMonth + "/"), {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		},
+	})
+
+	.then(response => response.json())
+	.then(calData => {
+		wvSet = [];
+		PreMounthWV(calData, givenMonth)
+
+	});
+} 
+
 
 // ------------ Month view Functions (mv) ----------------//
 // mv calendar genrator, fills in the dates and highlights for the month view. 
@@ -86,13 +119,13 @@ function calendarGen(calData, monthin) {
     const year_set = calData.year;
 	currentMonth = monthin;
 	setMonth = calData.month1
-	currentYeah = calData.cal_date.slice(0, 4)
+	currentYear = calData.cal_date.slice(0, 4)
 
     const calendarSet = calData.cal;
     mvSet = [];
 	wvSet = [];
 	const dateBannaer = document.getElementById('calDate')
-	dateBannaer.innerHTML = currentYeah + " " + setMonth;
+	dateBannaer.innerHTML = currentYear + " " + setMonth;
 
     // Clear the text content of existing labels
     for (let i = 1; i <= 42; i++) {
@@ -118,7 +151,7 @@ function calendarGen(calData, monthin) {
 			wvSet.push(day.day);
         }
     }
-	console.log(wvSet)
+	//console.log(wvSet)
 	// loops over the month view set and places the days in the claendar lables.
 	// it also will darken the days outsode of the month, to fill in the ends and highlight todays date
 	mvSet.forEach((day, index) => {
@@ -144,12 +177,12 @@ function calendarGen(calData, monthin) {
 		dayInfo.innerHTML = day;
 		dayDiv.appendChild(dayInfo);
 	
-		if (day === todayIs && month == parseInt(monthin) && currentYeah == year) {
+		if (day === todayIs && month == parseInt(monthin) && currentYear == year) {
 			dayDiv.classList.add('mv-today');
 			dayDiv.classList.remove('mv-label');
 		}
 	});
-	weekViewFunctions();
+	sameMonthWV();
 
 }
 
@@ -157,13 +190,13 @@ function calendarGen(calData, monthin) {
 function lastMonth() {
 	//console.log(currentMonth)
     if (currentMonth == "1" || currentMonth == "01") {
-        var lastYear = parseInt(currentYeah) - 1;
+        var lastYear = parseInt(currentYear) - 1;
         var lastM = 12;
 		//console.log(lastYear, lastM, 'last-year');
 		getGivenDate(lastYear, lastM);
     } else {
 		var lastMonthNum = parseInt(currentMonth) - 1;
-		getGivenDate(currentYeah, lastMonthNum);
+		getGivenDate(currentYear, lastMonthNum);
 
 	}
 
@@ -178,13 +211,13 @@ function lastMonth() {
 function nextMonth() {
 	//console.log(currentMonth)
     if (currentMonth === 12) {
-        let nextYear = parseInt(currentYeah) + 1;
+        let nextYear = parseInt(currentYear) + 1;
         let nextM = 1;
 		//console.log(nextYear, nextM, 'next-year');
 		getGivenDate(nextYear, nextM);
     } else {
 		let nextMonthNum = parseInt(currentMonth) + 1;
-		getGivenDate(currentYeah, nextMonthNum);
+		getGivenDate(currentYear, nextMonthNum);
 	}
 
 	document.getElementById('lastM').disabled = true;
@@ -200,83 +233,159 @@ function resetButtonState() {
 }
 
 
+
 // ------------ Week view Functions (mv) ----------------//
 // week view calendar genrator, fills in the dates and highlights for the week view. 
 
+// next day action
 function nextDay(){
 	++ d1;
 	++ d2;
 	++ d3;
-	const wvMonthSet = getMonthWVSet()
-	if (wvMonthSet[d3] == 1) {
+	let wvCurrenthSet = getMonthWVSet()
+	if (wvCurrenthSet[d3] == 1) {
+	
         let nextMonthNum = parseInt(currentMonth) + 1;
+		//console.log('next_month', nextMonthNum)
 		if (currentMonth === 12) {
-			let nextYear = parseInt(currentYeah) + 1;
+			let nextYear = parseInt(currentYear) + 1;
 			let nextM = 1;
 			//console.log(nextYear, nextM, 'next-year');
-			getGivenDate(nextYear, nextM);
+			getWVDate(nextYear, nextM);
 			d1 = 0;
 			d2 = 1;
 			d3 = 2;
 		} else {
-			getGivenDate(currentYeah, nextMonthNum);
+			getWVDate(currentYear, nextMonthNum);
 			d1 = 0;
 			d2 = 1;
 			d3 = 2;
 		}
 
     } else {
-		
-		weekViewFunctions();
+		sameMonthWV();
 	}
 
 }
+// previus day action
+function previousDay() {
+	let wvYear = 0
+	let wvCurrenthSet = getMonthWVSet();
 
-function previousDay(){
-	-- d1;
-	-- d2;
-	-- d3;
-	const wvMonthSet = getMonthWVSet()
-	if (wvMonthSet[d2] == 1) {
+	--d1;
+	--d2;
+	--d3;
+    if (wvCurrenthSet[d2] == 1) {
         let lastMonthNum = parseInt(currentMonth) - 1;
-		if (currentMonth == 1 || currentMonth == "01") {
-			var lastYear = parseInt(currentYeah) - 1;
-			var lastM = 12;
-			console.log(lastYear, lastM, 'last-year');
-			let lastDayNum = lastDayWVSet()
 
-			d1 = lastDayNum - 3;
-			d2 = lastDayNum - 2;
-			d3 = lastDayNum - 1;
-			getGivenDate(lastYear, lastM);
+        if (currentMonth == "1" || currentMonth === "01") {
+            let wvYear = parseInt(currentYear) - 1;
+            let lastM = 12;
+            //console.log(wvYear, lastM, 'last-year');
+			
+			getPreWVDate(wvYear, lastM);
 
-		} else {		
-			let lastDayNum = lastDayWVSet()
-
-			d1 = lastDayNum - 3;
-			d2 = lastDayNum - 2;
-			d3 = lastDayNum - 1;
-			console.log(lastDayNum);
-			getGivenDate(currentYeah, lastMonthNum);
-
-		}
+        } else {
+			wvYear = parseInt(currentYear);
+			getPreWVDate(wvYear, lastMonthNum);
+        }
+	
     } else {
-		
-		weekViewFunctions();
-	}
+		sameMonthWV();
+    }
 }
 
 
-function weekViewFunctions(){
+function sameMonthWV(){
+
 	const yearLabel = document.getElementById('calYear')
 	const day1Label = document.getElementById('w1l');
 	const day2Label = document.getElementById('w2l');
 	const day3Label = document.getElementById('w3l');
-	const wvMonthSet = getMonthWVSet()
-	yearLabel.innerHTML = currentYeah
-	day1Label.innerHTML = setMonth + ' ' + wvMonthSet[d1];
-	day2Label.innerHTML = setMonth + ' ' + wvMonthSet[d2];
-	day3Label.innerHTML = setMonth + ' ' + wvMonthSet[d3];
+	let wvMonthSet = getMonthWVSet();
+	yearLabel.innerHTML = currentYear
+	day1Label.innerHTML = `${setMonth} ${wvMonthSet[d1]}`;
+	day2Label.innerHTML = `${setMonth} ${wvMonthSet[d2]}`;
+	day3Label.innerHTML = `${setMonth} ${wvMonthSet[d3]}`;
+
+}
+
+function MounthWV(calData, monthin){
+	currentMonth = monthin;
+	setMonth = calData.month1
+	currentYear = calData.cal_date.slice(0, 4)
+
+    const calendarSet = calData.cal;
+
+	for (const weekKey in calendarSet) {
+        const week = calendarSet[weekKey];
+        for (const dayKey in week) {
+            var dateTimeSt = week[dayKey].date;
+            let datePart = dateTimeSt.split('T')[0];
+
+            if (datePart === formattedDate) {
+                todayIs = week[dayKey].day;
+            }
+            const day = week[dayKey];
+			wvSet.push(day.day);
+        }
+    }
+	let wvMonthSet = getMonthWVSet();
+
+	const yearLabel = document.getElementById('calYear')
+	const day1Label = document.getElementById('w1l');
+	const day2Label = document.getElementById('w2l');
+	const day3Label = document.getElementById('w3l');
+
+	yearLabel.innerHTML = currentYear
+	day1Label.innerHTML = `${setMonth} ${wvMonthSet[d1]}`;
+	day2Label.innerHTML = `${setMonth} ${wvMonthSet[d2]}`;
+	day3Label.innerHTML = `${setMonth} ${wvMonthSet[d3]}`;
+
+}
+
+function PreMounthWV(calData, monthin){
+	currentMonth = monthin;
+	setMonth = calData.month1
+	currentYear = calData.cal_date.slice(0, 4)
+
+    const calendarSet = calData.cal;
+
+	for (const weekKey in calendarSet) {
+        const week = calendarSet[weekKey];
+        for (const dayKey in week) {
+            var dateTimeSt = week[dayKey].date;
+            let datePart = dateTimeSt.split('T')[0];
+
+            if (datePart === formattedDate) {
+                todayIs = week[dayKey].day;
+            }
+            const day = week[dayKey];
+			wvSet.push(day.day);
+        }
+    }
+
+	let wvMonthSet = getMonthWVSet();
+	var month_end = wvMonthSet.lastIndexOf(1);
+	//console.log(wvMonthSet)
+	//console.log(month_end)
+
+	d1 = month_end - 3;
+	d2 = month_end - 2;
+	d3 = month_end - 1;
+	//console.log(
+		//wvSet[d1], 
+		//wvSet[d2], 
+		//wvSet[d3], )
+	const yearLabel = document.getElementById('calYear')
+	const day1Label = document.getElementById('w1l');
+	const day2Label = document.getElementById('w2l');
+	const day3Label = document.getElementById('w3l');
+
+	yearLabel.innerHTML = currentYear
+	day1Label.innerHTML = `${setMonth} ${wvMonthSet[d1]}`;
+	day2Label.innerHTML = `${setMonth} ${wvMonthSet[d2]}`;
+	day3Label.innerHTML = `${setMonth} ${wvMonthSet[d3]}`;
 
 }
 
@@ -286,11 +395,7 @@ function getMonthWVSet() {
 	return wvMonthSet;
 }
 
-function lastDayWVSet() {
-	var month_end = wvSet.lastIndexOf(1);
-	console.log(month_end)
-	return month_end;
-}
+
 
 
 //function weekViewFunctions(wvSet, setMonth){
