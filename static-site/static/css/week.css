@@ -14,7 +14,8 @@
 
 .week div{
 	position: relative;
-	height: 95%;
+	height: 80%;
+	border-radius: 8px;
 }
 
 .wv-label{

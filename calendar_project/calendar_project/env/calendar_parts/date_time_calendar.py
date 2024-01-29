@@ -29,6 +29,9 @@ def date_passed_check(check_date):
 # ---------------------------------------------------------------------------------------------------------------- #
 # Calendar Function
 # ---------------------------------------------------------------------------------------------------------------- #
+def month_last_day(given_year, given_month):
+    return calendar.monthrange(given_year, given_month)
+
 
 def cal_gen(month_set=month_number, year_set=year_number):
     

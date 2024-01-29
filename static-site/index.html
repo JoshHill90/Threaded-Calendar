@@ -30,13 +30,14 @@
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
+
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="/">Today</a>
-				  </li>
-			  
+				</li>
+
 			  <li class="nav-item">
 				
-				<div class="row g-3">
+				<div class="row g-3">					
 					<!-- large 30 day calendar control -->
 					<div class="col-auto monthBtn">
 						
@@ -120,6 +121,13 @@
 							<label class="bauble_label" for="bauble_check">Week Month Toggle </label>
 						</div>
 					</div>
+					<div class="col-auto">
+						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#newEventModal">
+							<span class="btn-cust-content">
+								<i class="fa-solid fa-plus"></i>
+							</span>
+						</button>
+					</div>
 				</div>
 			  </li>
 
@@ -132,51 +140,51 @@
 
 		<div id="mvCal" class="mt-4 h-100">
 			<div class="month-view">
-
-				<div class="mv-01"> <div id="mv1"  class="mv-label"></div> </div>
-				<div class="mv-02"> <div id="mv2"  class="mv-label"></div> </div>
-				<div class="mv-03"> <div id="mv3"  class="mv-label"></div> </div>
-				<div class="mv-04"> <div id="mv4"  class="mv-label"></div> </div>
-				<div class="mv-05"> <div id="mv5"  class="mv-label"></div> </div>
-				<div class="mv-06"> <div id="mv6"  class="mv-label"></div> </div>
-				<div class="mv-07"> <div id="mv7"  class="mv-label"></div> </div>
-				<div class="mv-08"> <div id="mv8"  class="mv-label"></div> </div>
-				<div class="mv-09"> <div id="mv9"  class="mv-label"></div> </div>
-				<div class="mv-10"> <div id="mv10" class="mv-label"></div> </div>
-				<div class="mv-11"> <div id="mv11" class="mv-label"></div> </div>
-				<div class="mv-12"> <div id="mv12" class="mv-label"></div> </div>
-				<div class="mv-13"> <div id="mv13" class="mv-label"></div> </div>
-				<div class="mv-14"> <div id="mv14" class="mv-label"></div> </div>
-				<div class="mv-15"> <div id="mv15" class="mv-label"></div> </div>
-				<div class="mv-16"> <div id="mv16" class="mv-label"></div> </div>
-				<div class="mv-17"> <div id="mv17" class="mv-label"></div> </div>
-				<div class="mv-18"> <div id="mv18" class="mv-label"></div> </div>
-				<div class="mv-19"> <div id="mv19" class="mv-label"></div> </div>
-				<div class="mv-20"> <div id="mv20" class="mv-label"></div> </div>
-				<div class="mv-21"> <div id="mv21" class="mv-label"></div> </div>
-				<div class="mv-22"> <div id="mv22" class="mv-label"></div> </div>
-				<div class="mv-23"> <div id="mv23" class="mv-label"></div> </div>
-				<div class="mv-24"> <div id="mv24" class="mv-label"></div> </div>
-				<div class="mv-25"> <div id="mv25" class="mv-label"></div> </div>
-				<div class="mv-26"> <div id="mv26" class="mv-label"></div> </div>
-				<div class="mv-27"> <div id="mv27" class="mv-label"></div> </div>
-				<div class="mv-28"> <div id="mv28" class="mv-label"></div> </div>
-				<div class="mv-29"> <div id="mv29" class="mv-label"></div> </div>
-				<div class="mv-30"> <div id="mv30" class="mv-label"></div> </div>
-				<div class="mv-31"> <div id="mv31" class="mv-label"></div> </div>
-				<div class="mv-32"> <div id="mv32" class="mv-label"></div> </div>
-				<div class="mv-33"> <div id="mv33" class="mv-label"></div> </div>
-				<div class="mv-34"> <div id="mv34" class="mv-label"></div> </div>
-				<div class="mv-35"> <div id="mv35" class="mv-label"></div> </div>
-				<div class="mv-36"> <div id="mv36" class="mv-label"></div> </div>
-				<div class="mv-37"> <div id="mv37" class="mv-label"></div> </div>
-				<div class="mv-38"> <div id="mv38" class="mv-label"></div> </div>
-				<div class="mv-39"> <div id="mv39" class="mv-label"></div> </div>
-				<div class="mv-40"> <div id="mv40" class="mv-label"></div> </div>
-				<div class="mv-41"> <div id="mv41" class="mv-label"></div> </div>
-				<div class="mv-42"> <div id="mv42" class="mv-label"></div> </div>
+				<!--- |main box|	|	    labe for box		   | |div row and end of row| |endLab|endbox|	-->
+				<div class="overflow-auto mv-01"> <div id="mv1"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-02"> <div id="mv2"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-03"> <div id="mv3"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-04"> <div id="mv4"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-05"> <div id="mv5"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-06"> <div id="mv6"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-07"> <div id="mv7"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-08"> <div id="mv8"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-09"> <div id="mv9"  class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-10"> <div id="mv10" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-11"> <div id="mv11" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-12"> <div id="mv12" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-13"> <div id="mv13" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-14"> <div id="mv14" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-15"> <div id="mv15" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-16"> <div id="mv16" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-17"> <div id="mv17" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-18"> <div id="mv18" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-19"> <div id="mv19" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-20"> <div id="mv20" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-21"> <div id="mv21" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-22"> <div id="mv22" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-23"> <div id="mv23" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-24"> <div id="mv24" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-25"> <div id="mv25" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-26"> <div id="mv26" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-27"> <div id="mv27" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-28"> <div id="mv28" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-29"> <div id="mv29" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-30"> <div id="mv30" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-31"> <div id="mv31" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-32"> <div id="mv32" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-33"> <div id="mv33" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-34"> <div id="mv34" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-35"> <div id="mv35" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-36"> <div id="mv36" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-37"> <div id="mv37" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-38"> <div id="mv38" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-39"> <div id="mv39" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-40"> <div id="mv40" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-41"> <div id="mv41" class="mv-label"> <div class="row"> </div> </div> </div>
+				<div class="overflow-auto mv-42"> <div id="mv42" class="mv-label"> <div class="row"> </div> </div> </div>
 		
-			</div>
+			</dioverflow-auto v>
 		</div>
 		<!-- slim weekly/daily calendar -->
 		<div id="wvCal" class=" h-100">
@@ -184,29 +192,30 @@
 				<div class="wv-1"> 
 					<div id="w1l" class="wv-label"></div> 
 					<div class="roller">
-						<div id="d101" class="wv-hl"></div>
-						<div id="d102" class="wv-hl"></div>
-						<div id="d103" class="wv-hl"></div>
-						<div id="d104" class="wv-hl"></div>
-						<div id="d105" class="wv-hl"></div>
-						<div id="d106" class="wv-hl"></div>
-						<div id="d107" class="wv-hl"></div>
-						<div id="d108" class="wv-hl"></div>
-						<div id="d109" class="wv-hl"></div>
-						<div id="d110" class="wv-hl"></div>
-						<div id="d111" class="wv-hl"></div>
-						<div id="d112" class="wv-hl"></div>
-						<div id="d113" class="wv-hl"></div>
-						<div id="d114" class="wv-hl"></div>
-						<div id="d116" class="wv-hl"></div>
-						<div id="d117" class="wv-hl"></div>
-						<div id="d118" class="wv-hl"></div>
-						<div id="d119" class="wv-hl"></div>
-						<div id="d120" class="wv-hl"></div>
-						<div id="d121" class="wv-hl"></div>
-						<div id="d122" class="wv-hl"></div>
-						<div id="d123" class="wv-hl"></div>
-						<div id="d124" class="wv-hl"></div>
+						<div id="d11"  class="wv-hl"><p class="p-l">1:00 AM</p> </div>
+						<div id="d12"  class="wv-hl"><p class="p-l">2:00 AM</p> </div>
+						<div id="d13"  class="wv-hl"><p class="p-l">3:00 AM</p> </div>
+						<div id="d14"  class="wv-hl"><p class="p-l">4:00 AM</p> </div>
+						<div id="d15"  class="wv-hl"><p class="p-l">5:00 AM</p> </div>
+						<div id="d16"  class="wv-hl"><p class="p-l">6:00 AM</p> </div>
+						<div id="d17"  class="wv-hl"><p class="p-l">7:00 AM</p> </div>
+						<div id="d18"  class="wv-hl"><p class="p-l">8:00 AM</p> </div>
+						<div id="d19"  class="wv-hl"><p class="p-l">9:00 AM</p> </div>
+						<div id="d110" class="wv-hl"><p class="p-l">10:00 AM</p></div>
+						<div id="d111" class="wv-hl"><p class="p-l">11:00 AM</p></div>
+						<div id="d112" class="wv-hl"><p class="p-l">12:00 PM</p></div>
+						<div id="d113" class="wv-hl"><p class="p-l">1:00 PM</p> </div>
+						<div id="d114" class="wv-hl"><p class="p-l">2:00 PM</p> </div>
+						<div id="d116" class="wv-hl"><p class="p-l">3:00 PM</p> </div>
+						<div id="d117" class="wv-hl"><p class="p-l">4:00 PM</p> </div>
+						<div id="d118" class="wv-hl"><p class="p-l">5:00 PM</p> </div>
+						<div id="d119" class="wv-hl"><p class="p-l">6:00 PM</p> </div>
+						<div id="d120" class="wv-hl"><p class="p-l">7:00 PM</p> </div>
+						<div id="d121" class="wv-hl"><p class="p-l">8:00 PM</p> </div>
+						<div id="d122" class="wv-hl"><p class="p-l">9:00 PM</p> </div>
+						<div id="d123" class="wv-hl"><p class="p-l">10:00 PM</p></div>
+						<div id="d124" class="wv-hl"><p class="p-l">11:00 PM</p></div>
+						<div id="d125" class="wv-hl"><p class="p-l">12:00 AM</p></div>
 					</div>
 
 				</div>
@@ -214,67 +223,138 @@
 				<div class="wv-2"> 
 					<div id="w2l" class="wv-label"></div>
 					<div class="roller">
-						<div id="d201" class="wv-hl"></div>
-						<div id="d202" class="wv-hl"></div>
-						<div id="d203" class="wv-hl"></div>
-						<div id="d204" class="wv-hl"></div>
-						<div id="d205" class="wv-hl"></div>
-						<div id="d206" class="wv-hl"></div>
-						<div id="d207" class="wv-hl"></div>
-						<div id="d208" class="wv-hl"></div>
-						<div id="d209" class="wv-hl"></div>
-						<div id="d210" class="wv-hl"></div>
-						<div id="d211" class="wv-hl"></div>
-						<div id="d212" class="wv-hl"></div>
-						<div id="d213" class="wv-hl"></div>
-						<div id="d214" class="wv-hl"></div>
-						<div id="d216" class="wv-hl"></div>
-						<div id="d217" class="wv-hl"></div>
-						<div id="d218" class="wv-hl"></div>
-						<div id="d219" class="wv-hl"></div>
-						<div id="d220" class="wv-hl"></div>
-						<div id="d221" class="wv-hl"></div>
-						<div id="d222" class="wv-hl"></div>
-						<div id="d223" class="wv-hl"></div>
-						<div id="d224" class="wv-hl"></div>
+						<div id="d21"  class="wv-hl"><p class="p-l">1:00 AM</p> </div>
+						<div id="d22"  class="wv-hl"><p class="p-l">2:00 AM</p> </div>
+						<div id="d23"  class="wv-hl"><p class="p-l">3:00 AM</p> </div>
+						<div id="d24"  class="wv-hl"><p class="p-l">4:00 AM</p> </div>
+						<div id="d25"  class="wv-hl"><p class="p-l">5:00 AM</p> </div>
+						<div id="d26"  class="wv-hl"><p class="p-l">6:00 AM</p> </div>
+						<div id="d27"  class="wv-hl"><p class="p-l">7:00 AM</p> </div>
+						<div id="d28"  class="wv-hl"><p class="p-l">8:00 AM</p> </div>
+						<div id="d29"  class="wv-hl"><p class="p-l">9:00 AM</p> </div>
+						<div id="d210" class="wv-hl"><p class="p-l">10:00 AM</p></div>
+						<div id="d211" class="wv-hl"><p class="p-l">11:00 AM</p></div>
+						<div id="d212" class="wv-hl"><p class="p-l">12:00 PM</p></div>
+						<div id="d213" class="wv-hl"><p class="p-l">1:00 PM</p> </div>
+						<div id="d214" class="wv-hl"><p class="p-l">2:00 PM</p> </div>
+						<div id="d216" class="wv-hl"><p class="p-l">3:00 PM</p> </div>
+						<div id="d217" class="wv-hl"><p class="p-l">4:00 PM</p> </div>
+						<div id="d218" class="wv-hl"><p class="p-l">5:00 PM</p> </div>
+						<div id="d219" class="wv-hl"><p class="p-l">6:00 PM</p> </div>
+						<div id="d220" class="wv-hl"><p class="p-l">7:00 PM</p> </div>
+						<div id="d221" class="wv-hl"><p class="p-l">8:00 PM</p> </div>
+						<div id="d222" class="wv-hl"><p class="p-l">9:00 PM</p> </div>
+						<div id="d223" class="wv-hl"><p class="p-l">10:00 PM</p></div>
+						<div id="d224" class="wv-hl"><p class="p-l">11:00 PM</p></div>
+						<div id="d225" class="wv-hl"><p class="p-l">12:00 AM</p></div>
 					</div> 
 
 				</div>
+
 				<div class="wv-3"> 
 					<div id="w3l" class="wv-label"></div> 
 					<div class="roller">
-						<div id="d301" class="wv-hl"></div>
-						<div id="d302" class="wv-hl"></div>
-						<div id="d303" class="wv-hl"></div>
-						<div id="d304" class="wv-hl"></div>
-						<div id="d305" class="wv-hl"></div>
-						<div id="d306" class="wv-hl"></div>
-						<div id="d307" class="wv-hl"></div>
-						<div id="d308" class="wv-hl"></div>
-						<div id="d309" class="wv-hl"></div>
-						<div id="d310" class="wv-hl"></div>
-						<div id="d311" class="wv-hl"></div>
-						<div id="d312" class="wv-hl"></div>
-						<div id="d313" class="wv-hl"></div>
-						<div id="d314" class="wv-hl"></div>
-						<div id="d316" class="wv-hl"></div>
-						<div id="d317" class="wv-hl"></div>
-						<div id="d318" class="wv-hl"></div>
-						<div id="d319" class="wv-hl"></div>
-						<div id="d320" class="wv-hl"></div>
-						<div id="d321" class="wv-hl"></div>
-						<div id="d322" class="wv-hl"></div>
-						<div id="d323" class="wv-hl"></div>
-						<div id="d324" class="wv-hl"></div>
+						<div id="d31"  class="wv-hl"><p class="p-l">1:00 AM</p> </div>
+						<div id="d32"  class="wv-hl"><p class="p-l">2:00 AM</p> </div>
+						<div id="d33"  class="wv-hl"><p class="p-l">3:00 AM</p> </div>
+						<div id="d34"  class="wv-hl"><p class="p-l">4:00 AM</p> </div>
+						<div id="d35"  class="wv-hl"><p class="p-l">5:00 AM</p> </div>
+						<div id="d36"  class="wv-hl"><p class="p-l">6:00 AM</p> </div>
+						<div id="d37"  class="wv-hl"><p class="p-l">7:00 AM</p> </div>
+						<div id="d38"  class="wv-hl"><p class="p-l">8:00 AM</p> </div>
+						<div id="d39"  class="wv-hl"><p class="p-l">9:00 AM</p> </div>
+						<div id="d310" class="wv-hl"><p class="p-l">10:00 AM</p></div>
+						<div id="d311" class="wv-hl"><p class="p-l">11:00 AM</p></div>
+						<div id="d312" class="wv-hl"><p class="p-l">12:00 PM</p></div>
+						<div id="d313" class="wv-hl"><p class="p-l">1:00 PM</p> </div>
+						<div id="d314" class="wv-hl"><p class="p-l">2:00 PM</p> </div>
+						<div id="d316" class="wv-hl"><p class="p-l">3:00 PM</p> </div>
+						<div id="d317" class="wv-hl"><p class="p-l">4:00 PM</p> </div>
+						<div id="d318" class="wv-hl"><p class="p-l">5:00 PM</p> </div>
+						<div id="d319" class="wv-hl"><p class="p-l">6:00 PM</p> </div>
+						<div id="d320" class="wv-hl"><p class="p-l">7:00 PM</p> </div>
+						<div id="d321" class="wv-hl"><p class="p-l">8:00 PM</p> </div>
+						<div id="d322" class="wv-hl"><p class="p-l">9:00 PM</p> </div>
+						<div id="d323" class="wv-hl"><p class="p-l">10:00 PM</p></div>
+						<div id="d324" class="wv-hl"><p class="p-l">11:00 PM</p></div>
+						<div id="d324" class="wv-hl"><p class="p-l">12:00 AM</p></div>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="newEventModal" tabindex="-1" aria-labelledby="newEventModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class='h1-1 modal-title '>Add New Event</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method=POST id="NewEventForm">
+					
+						
+
+					<div class='row'>
+						<div class='col-12'>
+							<label for="id_title">Title:</label>
+							<input class='form-control' value='' type="text" name="title" maxlength="255" required="" id="id_title">
+						</div>
+
+						
+						<div class='col-4 mt-4'>
+							<label for="id_date">Date:</label>
+							<input class='form-control' type="date" name="date" required="" id="id_date">
+						</div>
+	
+						<div class='col-4 mt-4'>
+							<label for="id_start">Start:</label>
+							<input class='form-control' type="time" name="start" id="id_start">
+						</div>
+	
+						<div class='col-4 mt-4'>
+							<label for="id_end">End:</label>
+							<input class='form-control' type="time" name="end" id="id_end">
+						</div>
+	
+						<div class='col-12 mt-4'>
+							<label for="id_event_type">Event type:</label>
+							<select class='form-control' type="select" name="event_type" maxlength="50" id="id_event_type">
+								<option value="Meeting">Meeting</option>
+								<option value="All Day Event">All Day Event</option>
+								<option value="Time Block">Time Block</option>
+								<option value="Busy/Away">Busy/Away</option>
+								<option value="Timed Event">Timed Event</option>
+							</select>
+						</div>
+	
+						<div class='col-12 mt-4'>
+						
+							<label for="id_details">Details:</label>
+							<textarea 
+							class='form-control'
+							rows='6'
+							name="details" 
+							maxlength="500" 
+							id="id_details"></textarea>
+						</div>
+					</div>  
+
+					<button class="btn-cust mt-4" id="newEventBtn">
+						Add
+					</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 	<script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://kit.fontawesome.com/00f4d71521.js" crossorigin="anonymous"></script>
 	<script src="/static/js/toggle.js"></script>
+	<script src="/static/js/calenderFunctions.js"></script>
 </body>
 </html>
 

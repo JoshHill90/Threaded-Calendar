@@ -1,7 +1,7 @@
 const toggler = document.getElementById('bauble_check');
 const mvcal = document.getElementById('mvCal');
 const wvcal = document.getElementById('wvCal');
-wvcal.style.transform = "translate(0px, -200vh)"
+wvcal.style.transform = "translate(0px, -205vh)"
 const wvControl = document.getElementsByClassName('weekBtn')
 const mvControl = document.getElementsByClassName('monthBtn')
 let mvControlArray = Array.from(mvControl);
@@ -48,7 +48,7 @@ async function toggleMV() {
 
 	await new Promise((resolved) => {
 		wvcal.style.transition = "transform 1s";
-		wvcal.style.transform = "translate(0px, -200vh)"
+		wvcal.style.transform = "translate(0px, -205vh)"
 		setTimeout( () => {
 
 			mvcal.style.transition = "transform 1s";

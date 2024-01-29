@@ -14,7 +14,7 @@ def date_stamp():
 
 
 class Event(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     subject = models.CharField(max_length=255)
     date = models.DateField(default=date_stamp())
     start = models.TimeField(blank=True, null=True)

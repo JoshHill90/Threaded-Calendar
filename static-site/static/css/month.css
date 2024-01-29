@@ -55,6 +55,7 @@
 	position: relative;
 	border:1px solid  var(--mc-2);
 	height: 100%;
+	border-radius: 5px;
 }
 
 .mv-label{
@@ -92,4 +93,14 @@
 		var(--mc-7) 10.8%,
 		var(--mc-6) 94.3%
 	  );
+}
+
+.event_icon {
+	color: var(--mc3-3); 
+
+}
+
+.event_col {
+	max-height: 30px;
+	overflow: hidden;
 }

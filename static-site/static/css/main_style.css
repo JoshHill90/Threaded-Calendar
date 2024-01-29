@@ -87,7 +87,7 @@ Topography
 .p-l {
   color: var(--bg-1);
   font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
+  font-optical-sizing: 12px;
   font-weight: 400;
   font-style: normal;
 }
