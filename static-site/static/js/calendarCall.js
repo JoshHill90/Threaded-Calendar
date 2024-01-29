@@ -120,6 +120,8 @@ function calendarGen(calData, monthin) {
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
+	events = calData.events
+	console.log(events)
 
     const calendarSet = calData.cal;
     mvSet = [];
@@ -157,7 +159,7 @@ function calendarGen(calData, monthin) {
 	mvSet.forEach((day, index) => {
 		var dayDiv = document.getElementById("mv" + (index + 1));
 		const dayInfo = document.createElement('p');
-	
+		//console.log(day)
 		if ((day > 20) && ((index + 1) < 13)) {
 			//console.log(day, (index + 1) + ' end of previous month');
 			dayInfo.classList = "p-l";
@@ -181,10 +183,52 @@ function calendarGen(calData, monthin) {
 			dayDiv.classList.add('mv-today');
 			dayDiv.classList.remove('mv-label');
 		}
+		for (eventIndex = 0; eventIndex < events.length; ++ eventIndex){
+			//console.log(events[eventIndex].date.split('-')[2], 'event day');
+			if (day == events[eventIndex].date.split("-")[2]) {
+				// create icon for event type 
+				let iconText = document.createElement('p')
+				let parentDiv1 = document.createElement('div');
+				let parentDiv2 = document.createElement('div');
+				let iconSymb = ''
+				let topDiv = dayDiv.parentElement
+				//console.log(events[eventIndex].event_type)
+				//checks event typs and appleis the corresponding icon 
+				if (events[eventIndex].event_type == 'Meeting') {
+					
+					iconSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
+				} else if (events[eventIndex].event_type == 'All Day Event') {
+
+					iconSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
+				} else if (events[eventIndex].event_type == 'Time Block') {
+
+					iconSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
+				} else if (events[eventIndex].event_type == 'Busy/Away') {
+					
+					iconSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
+				} else if (events[eventIndex].event_type == 'Timed Event') {
+					
+					iconSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
+				}
+				
+				// add classes to created elements 
+				parentDiv2.classList.add('col-12', 'event_col')
+				iconText.classList.add('p-l')
+
+				// insert subject as text
+				iconText.innerHTML = iconSymb + ' ' + events[eventIndex].subject
+				//console.log(parentDiv, dayDiv)
+				
+				parentDiv2.appendChild(iconText)
+				topDiv.appendChild(parentDiv2)
+
+			}
+		}
 	});
 	sameMonthWV();
 
 }
+
 
 // Function to get the calendar for the last month
 function lastMonth() {
@@ -297,7 +341,7 @@ function previousDay() {
 
 
 function sameMonthWV(){
-
+	
 	const yearLabel = document.getElementById('calYear')
 	const day1Label = document.getElementById('w1l');
 	const day2Label = document.getElementById('w2l');
@@ -314,7 +358,7 @@ function MounthWV(calData, monthin){
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
-
+	
     const calendarSet = calData.cal;
 
 	for (const weekKey in calendarSet) {
@@ -348,7 +392,7 @@ function PreMounthWV(calData, monthin){
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
-
+	
     const calendarSet = calData.cal;
 
 	for (const weekKey in calendarSet) {
@@ -394,21 +438,3 @@ function getMonthWVSet() {
 	var wvMonthSet = wvSet.slice(month_start);
 	return wvMonthSet;
 }
-
-
-
-
-//function weekViewFunctions(wvSet, setMonth){
-//
-//	const day1Label = document.getElementById('w1l');
-//	const day2Label = document.getElementById('w2l');
-//	const day3Label = document.getElementById('w3l');
-//
-//	var month_start = wvSet.indexOf(1)
-//	var wvMonthSet = wvSet.slice(month_start)
-//	
-//	day1Label.innerHTML = setMonth + ' ' + wvMonthSet[d1]
-//	day2Label.innerHTML = setMonth + ' ' + wvMonthSet[d2]
-//	day3Label.innerHTML = setMonth + ' ' + wvMonthSet[d3]
-//
-//}
