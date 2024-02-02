@@ -1,5 +1,7 @@
 
 const newEventUrl = 'http://127.0.0.1:8000/api/v1/calendar/new-event/'
+const deleteUrl = 'http://127.0.0.1:8000/api/v1/calendar/delete-event'
+const updateUrl = 'http://127.0.0.1:8000/api/v1/calendar/update-event/'
 const newEventForm = document.getElementById('NewEventForm'); 
 console.log
 newEventForm.addEventListener("submit", (e) => {
@@ -37,3 +39,22 @@ newEventForm.addEventListener("submit", (e) => {
 	});
 
 });
+
+async function deleteEvent(eventID) {
+	let delURL = `${deleteUrl}/${eventID}/`
+
+	fetch((delURL), {
+		method: "DELETE",
+
+		headers: {
+			"Content-Type": "application/json"
+		},
+	})
+	.then(jsonResp => {
+		if (!jsonResp.ok) {
+			throw new Error(`HTTP error! Status: please refresh and try again`);
+		}
+		document.location.reload();
+		
+	});
+}

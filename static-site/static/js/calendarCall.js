@@ -7,7 +7,8 @@ let todayIs = ""
 const site = "http://127.0.0.1:8000/";
 const calURL = site + "api/v1/calendar/";
 let mvSet = [];
-let wvSet = []
+let wvSet = [];
+
 const toggleCheck = document.getElementById('bauble_check');
 var d1 = 0
 var d2 = 1
@@ -16,6 +17,9 @@ let setMonth = ''
 const getDate = document.getElementById('getDate')
 let currentMonth = ''
 let currentYear = ''
+
+let event_list = ''
+/// need to make event list and append 
 
 // ------------ onload functions ----------------//
 
@@ -63,6 +67,7 @@ function getTodaysDate() {
 	})
 	.then(response => response.json())
 	.then(calData => {
+		event_list = ''
 		calendarGen(calData, month);
 	});
 } 
@@ -76,6 +81,7 @@ function getGivenDate(givenYear, givenMonth) {
 	})
 	.then(response => response.json())
 	.then(calData => {
+		event_list = ''
 		calendarGen(calData, givenMonth);
 	});
 } 
@@ -91,6 +97,7 @@ function getWVDate(givenYear, givenMonth) {
 	.then(response => response.json())
 	.then(calData => {
 		wvSet = [];
+		event_list = ''
 		MounthWV(calData, givenMonth)
 
 	});
@@ -107,10 +114,47 @@ function getPreWVDate(givenYear, givenMonth) {
 	.then(response => response.json())
 	.then(calData => {
 		wvSet = [];
+		event_list = ''
 		PreMounthWV(calData, givenMonth)
 
 	});
 } 
+
+function dynamicEventModal(eventData){
+	console.log(eventData);
+	const titleLabel = document.getElementById('eventModalLabel');
+	const dateLabel = document.getElementById('eventModalDate');
+	const startLabel = document.getElementById('eventModalStart');
+	const endLabel = document.getElementById('eventModalEnd');
+	const typeLabel = document.getElementById('eventModalType');
+	const detailSection = document.getElementById('eventModaldetails');
+	const deleteBtn = document.getElementById('deleteEventBtn');
+	const update = document.getElementById('updateEventBtn');
+	let eventID = eventData.id;
+	titleLabel.innerHTML = eventData.subject;
+	dateLabel.innerHTML = eventData.date;
+	if (eventData.start.split(":")[0] > 12 ){
+		startLabel.innerHTML = `${((eventData.start.split(":")[0]) - 11)}:${eventData.start.split(":")[0]} PM`;
+	} else {
+		startLabel.innerHTML = `${parseInt(eventData.start.split(":")[0])}:${eventData.start.split(":")[0]} AM`;
+	};
+	
+	if (eventData.event_type == "All Day Event") {
+		endLabel.innerHTML = "-:-- All Day"
+	} else {
+		if (eventData.end.split(":")[0] > 12 ){
+			endLabel.innerHTML = `${((eventData.end.split(":")[0]) - 12)}:${eventData.end.split(":")[0]} PM`;
+		} else {
+			endLabel.innerHTML = `${parseInt(eventData.end.split(":")[0])}:${eventData.end.split(":")[0]} AM`;
+		};
+	};
+	deleteBtn.setAttribute("onclick", `deleteEvent(${eventID})`);
+	update.setAttribute("onclick", `updateEvent(${eventID})`);
+	
+	typeLabel.innerHTML = eventData.event_type
+	detailSection.innerHTML = eventData.details
+
+}
 
 
 // ------------ Month view Functions (mv) ----------------//
@@ -120,12 +164,13 @@ function calendarGen(calData, monthin) {
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
-	events = calData.events
-	console.log(events)
+	event_list = calData.events
+	//console.log(event_list)
 
     const calendarSet = calData.cal;
     mvSet = [];
 	wvSet = [];
+
 	const dateBannaer = document.getElementById('calDate')
 	dateBannaer.innerHTML = currentYear + " " + setMonth;
 
@@ -151,6 +196,7 @@ function calendarGen(calData, monthin) {
             const day = week[dayKey];
             mvSet.push(day.day);
 			wvSet.push(day.day);
+			
         }
     }
 	//console.log(wvSet)
@@ -159,6 +205,9 @@ function calendarGen(calData, monthin) {
 	mvSet.forEach((day, index) => {
 		var dayDiv = document.getElementById("mv" + (index + 1));
 		const dayInfo = document.createElement('p');
+		let topDiv = dayDiv.parentElement
+		topDiv.innerHTML = ''
+		topDiv.append(dayDiv)
 		//console.log(day)
 		if ((day > 20) && ((index + 1) < 13)) {
 			//console.log(day, (index + 1) + ' end of previous month');
@@ -175,6 +224,53 @@ function calendarGen(calData, monthin) {
 			dayDiv.classList.add('mv-label');
 			//console.log(day, (index + 1) + ' set');
 			dayInfo.classList = "p-p";
+			//checks for days with events within this month
+			for (eventIndex = 0; eventIndex < event_list.length; ++ eventIndex){
+				//console.log(events[eventIndex].date.split('-')[2], 'event day');
+				
+				if (day == event_list[eventIndex].date.split("-")[2]) {
+					// create icon for event type 
+					let iconText = document.createElement('button')
+					iconText.classList.add('btn-cust-2', 'w-100')
+					iconText.type = "button";
+					iconText.setAttribute('data-bs-toggle', 'modal');
+					iconText.setAttribute('data-bs-target', '#eventModal');
+					iconText.setAttribute("onclick", `dynamicEventModal(${JSON.stringify(event_list[eventIndex])})`);
+					let parentDiv2 = document.createElement('div');
+					let iconSymb = ''
+					
+					//console.log(events[eventIndex].event_type)
+					//checks event typs and appleis the corresponding icon 
+					if (event_list[eventIndex].event_type == 'Meeting') {
+						
+						iconSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
+					} else if (event_list[eventIndex].event_type == 'All Day Event') {
+	
+						iconSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
+					} else if (event_list[eventIndex].event_type == 'Time Block') {
+	
+						iconSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
+					} else if (event_list[eventIndex].event_type == 'Busy/Away') {
+						
+						iconSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
+					} else if (event_list[eventIndex].event_type == 'Timed Event') {
+						
+						iconSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
+					}
+
+					// add classes to created elements 
+					parentDiv2.classList.add('col-12', 'event_col')
+					iconText.classList.add('p-l')
+					
+					// insert subject as text
+					iconText.innerHTML = iconSymb + ' ' + event_list[eventIndex].subject
+					//console.log(parentDiv, dayDiv)
+						
+					parentDiv2.appendChild(iconText)
+					topDiv.appendChild(parentDiv2)
+	
+				}
+			}
 		}
 		dayInfo.innerHTML = day;
 		dayDiv.appendChild(dayInfo);
@@ -183,47 +279,7 @@ function calendarGen(calData, monthin) {
 			dayDiv.classList.add('mv-today');
 			dayDiv.classList.remove('mv-label');
 		}
-		for (eventIndex = 0; eventIndex < events.length; ++ eventIndex){
-			//console.log(events[eventIndex].date.split('-')[2], 'event day');
-			if (day == events[eventIndex].date.split("-")[2]) {
-				// create icon for event type 
-				let iconText = document.createElement('p')
-				let parentDiv1 = document.createElement('div');
-				let parentDiv2 = document.createElement('div');
-				let iconSymb = ''
-				let topDiv = dayDiv.parentElement
-				//console.log(events[eventIndex].event_type)
-				//checks event typs and appleis the corresponding icon 
-				if (events[eventIndex].event_type == 'Meeting') {
-					
-					iconSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
-				} else if (events[eventIndex].event_type == 'All Day Event') {
 
-					iconSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
-				} else if (events[eventIndex].event_type == 'Time Block') {
-
-					iconSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
-				} else if (events[eventIndex].event_type == 'Busy/Away') {
-					
-					iconSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
-				} else if (events[eventIndex].event_type == 'Timed Event') {
-					
-					iconSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
-				}
-				
-				// add classes to created elements 
-				parentDiv2.classList.add('col-12', 'event_col')
-				iconText.classList.add('p-l')
-
-				// insert subject as text
-				iconText.innerHTML = iconSymb + ' ' + events[eventIndex].subject
-				//console.log(parentDiv, dayDiv)
-				
-				parentDiv2.appendChild(iconText)
-				topDiv.appendChild(parentDiv2)
-
-			}
-		}
 	});
 	sameMonthWV();
 
@@ -347,18 +403,19 @@ function sameMonthWV(){
 	const day2Label = document.getElementById('w2l');
 	const day3Label = document.getElementById('w3l');
 	let wvMonthSet = getMonthWVSet();
+	weekViewEvents(wvMonthSet);
 	yearLabel.innerHTML = currentYear
 	day1Label.innerHTML = `${setMonth} ${wvMonthSet[d1]}`;
 	day2Label.innerHTML = `${setMonth} ${wvMonthSet[d2]}`;
 	day3Label.innerHTML = `${setMonth} ${wvMonthSet[d3]}`;
-
+	
 }
 
 function MounthWV(calData, monthin){
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
-	
+	event_list = calData.events
     const calendarSet = calData.cal;
 
 	for (const weekKey in calendarSet) {
@@ -375,6 +432,7 @@ function MounthWV(calData, monthin){
         }
     }
 	let wvMonthSet = getMonthWVSet();
+	weekViewEvents(wvMonthSet);
 
 	const yearLabel = document.getElementById('calYear')
 	const day1Label = document.getElementById('w1l');
@@ -389,10 +447,12 @@ function MounthWV(calData, monthin){
 }
 
 function PreMounthWV(calData, monthin){
+	console.log('last month')
 	currentMonth = monthin;
 	setMonth = calData.month1
 	currentYear = calData.cal_date.slice(0, 4)
-	
+	event_list = calData.events
+	console.log(event_list)
     const calendarSet = calData.cal;
 
 	for (const weekKey in calendarSet) {
@@ -413,7 +473,7 @@ function PreMounthWV(calData, monthin){
 	var month_end = wvMonthSet.lastIndexOf(1);
 	//console.log(wvMonthSet)
 	//console.log(month_end)
-
+	
 	d1 = month_end - 3;
 	d2 = month_end - 2;
 	d3 = month_end - 1;
@@ -425,7 +485,7 @@ function PreMounthWV(calData, monthin){
 	const day1Label = document.getElementById('w1l');
 	const day2Label = document.getElementById('w2l');
 	const day3Label = document.getElementById('w3l');
-
+	weekViewEvents(wvMonthSet);
 	yearLabel.innerHTML = currentYear
 	day1Label.innerHTML = `${setMonth} ${wvMonthSet[d1]}`;
 	day2Label.innerHTML = `${setMonth} ${wvMonthSet[d2]}`;
@@ -437,4 +497,111 @@ function getMonthWVSet() {
 	var month_start = wvSet.indexOf(1);
 	var wvMonthSet = wvSet.slice(month_start);
 	return wvMonthSet;
+}
+
+
+function weekViewEvents(wvMonthSet){
+		//console.log('wv event', event_list)
+	
+		const hourDivs = document.getElementsByClassName('day-wv-set')
+		for (indexHour = 0; indexHour < hourDivs.length; ++ indexHour) {
+			if (hourDivs[indexHour]) {
+				let endTimeStr = hourDivs[indexHour].innerHTML.indexOf('M')
+				let hourStr = hourDivs[indexHour].innerHTML.slice(0, (endTimeStr + 1))
+				hourDivs[indexHour].innerHTML = hourStr
+				
+			}
+		}
+
+		for (listIndex = 0; listIndex < event_list.length; ++listIndex) {
+
+			if (wvMonthSet[d1] == event_list[listIndex].date.split("-")[2]) {
+				//console.log('checker space 1 ')
+				let eventDiv = document.createElement('button');
+				eventDiv.classList.add('btn-cust-2', 'w-100');
+				eventDiv.type = "button";
+				eventDiv.setAttribute('data-bs-toggle', 'modal');
+				eventDiv.setAttribute('data-bs-target', '#eventModal');
+				eventDiv.setAttribute("onclick", `dynamicEventModal(${JSON.stringify(event_list[listIndex])})`);
+				let startH = event_list[listIndex].start.split(":")[0];
+				//console.log(startH)
+				let divStart1 = document.getElementById(`d1-h${parseInt(startH)}`);
+				//console.log(divStart1)
+				let iconEventSymb = ''
+				if (event_list[listIndex].event_type == 'Meeting') {	
+					iconEventSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'All Day Event') {
+				
+					iconEventSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Time Block') {
+					iconEventSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Busy/Away') {
+					iconEventSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Timed Event') {
+					iconEventSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
+				}
+				
+				eventDiv.innerHTML = `${iconEventSymb} ${event_list[listIndex].subject}`;
+				divStart1.appendChild(eventDiv)
+
+			} else if (wvMonthSet[d2] == event_list[listIndex].date.split("-")[2]) {
+				//console.log('checker space 2 ')
+				let eventDiv = document.createElement('button');
+				eventDiv.classList.add('btn-cust-2', 'w-100');
+				eventDiv.type = "button";
+				eventDiv.setAttribute('data-bs-toggle', 'modal');
+				eventDiv.setAttribute('data-bs-target', '#eventModal');
+				eventDiv.setAttribute("onclick", `dynamicEventModal(${JSON.stringify(event_list[listIndex])})`);
+
+				let startH = event_list[listIndex].start.split(":")[0];
+				//console.log(startH)
+				let divStart2 = document.getElementById(`d2-h${parseInt(startH)}`);
+				//console.log(divStart2)
+				if (event_list[listIndex].event_type == 'Meeting') {	
+					iconEventSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'All Day Event') {
+					iconEventSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Time Block') {
+					iconEventSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Busy/Away') {
+					iconEventSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Timed Event') {
+					iconEventSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
+				}
+				
+				eventDiv.innerHTML = `${iconEventSymb} ${event_list[listIndex].subject}`;
+				divStart2.appendChild(eventDiv)
+
+			} else if (wvMonthSet[d3] == event_list[listIndex].date.split("-")[2]) {
+				//console.log('checker space 3')
+				let eventDiv = document.createElement('button');
+				eventDiv.classList.add('btn-cust-2', 'w-100');
+				eventDiv.type = "button";
+				eventDiv.setAttribute('data-bs-toggle', 'modal');
+				eventDiv.setAttribute('data-bs-target', '#eventModal');
+				eventDiv.setAttribute("onclick", `dynamicEventModal(${JSON.stringify(event_list[listIndex])})`);
+				let startH = event_list[listIndex].start.split(":")[0];
+				//console.log(startH)
+				let divStart3 = document.getElementById(`d3-h${parseInt(startH)}`);
+				//console.log(divStart3)
+				if (event_list[listIndex].event_type == 'Meeting') {	
+					iconEventSymb = '<i class="fa-regular fa-handshake event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'All Day Event') {
+				
+					iconEventSymb = '<i class="fa-solid fa-calendar event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Time Block') {
+					iconEventSymb = '<i class="fa-regular fa-square-full event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Busy/Away') {
+					iconEventSymb = '<i class="fa-solid fa-square-full  event_icon"></i>'
+				} else if (event_list[listIndex].event_type == 'Timed Event') {
+					iconEventSymb = '<i class="fa-regular fa-clock  event_icon"></i>'
+				}
+				
+				eventDiv.innerHTML = `${iconEventSymb} ${event_list[listIndex].subject}`;
+				divStart3.appendChild(eventDiv)
+
+			} 
+
+		}
+	
 }

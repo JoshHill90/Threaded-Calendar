@@ -77,7 +77,9 @@ def add_event(request):
         
         return Response(resp)
 
-
+def delete_event(request, id):
+    
+    return HttpResponse()
  
 def index(request):
     users = User.objects.all()

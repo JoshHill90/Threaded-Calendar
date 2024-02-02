@@ -31,6 +31,7 @@
   --mc-5:#008F56;
   --mc-6:#006039;
   --mc-7:#00301C;
+  --mc-op6:#00603ae8;
 
   --mc2-1:#E9FAC4;
   --mc2-2:#D3F589;
@@ -47,6 +48,7 @@
   --mc3-5:#003A5C;
   --mc3-6:#00273D;
   --mc3-7:#00131E;
+  --mc3-op6:#00273d85;
 }
 
 /* --------------------------------
@@ -99,4 +101,23 @@ Tools and useful stuff
 .roller {
   height: auto;
 	overflow: auto;
+}
+
+
+.navbar {
+  background-color: var(--mc-1)!important;
+}
+.nav-link{
+  color: var(--mc-6)!important;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.navbar-brand{
+  color: var(--mc-6)!important;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: bold;
 }
