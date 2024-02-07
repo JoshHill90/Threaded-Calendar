@@ -172,7 +172,7 @@ function calendarGen(calData, monthin) {
 	wvSet = [];
 
 	const dateBannaer = document.getElementById('calDate')
-	dateBannaer.innerHTML = currentYear + " " + setMonth;
+	dateBannaer.innerHTML = currentYear + " " + setMonth.slice(0, 3);
 
     // Clear the text content of existing labels
     for (let i = 1; i <= 42; i++) {

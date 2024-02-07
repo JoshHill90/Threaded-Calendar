@@ -130,6 +130,20 @@
 							</span>
 						</button>
 					</div>
+					<div class="col-auto">
+						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#newUserModal">
+							<span class="btn-cust-content">
+								SignUp
+							</span>
+						</button>
+					</div>
+					<div class="col-auto">
+						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+							<span class="btn-cust-content">
+								Login
+							</span>
+						</button>
+					</div>
 				</div>
 			  </li>
 
@@ -340,24 +354,24 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-			<div id="functionLoader1" class="functionloader">
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-				<div class="block"></div>
-			</div>
+				<div id="functionLoader1" class="functionloader">
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+					<div class="block"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -428,6 +442,128 @@
 						</button>
 
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog dark">
+		  	<div class="modal-content">
+				<div class="modal-header">
+					<h1 class='h1-1 modal-title '>Add New Event</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method=POST id="NewUserForm">
+
+						<div class='row'>
+							<div class='col-12'>
+								<label for="id_email">Email:</label>
+								<input class='form-control' value='' type="text" name="email" maxlength="255" required id="id_email">
+							</div>
+							
+							<div class='col-12 mt-4'>
+								<label for="id_username">Username</label>
+								<input class='form-control' value='' type="text" name="username" required id="id_username">
+							</div>
+		
+							<div class='col-12 mt-4'>
+								<label for="id_password">Password</label>
+								<input class='form-control' value='' type="text" required name="password" id="id_password">
+							</div>
+		
+							<div class='col-12 mt-4'>
+								<label for="id_repassword">Re-enter Password</label>
+								<input class='form-control' value='' type="text" required name="repassword" id="id_repassword">
+							</div>
+
+						</div>  
+
+						<button class="btn-cust mt-4" id="newUserBtn">
+							<span class="btn-cust-content">
+								SignUp
+							</span>
+						</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog dark">
+		  	<div class="modal-content">
+				<div class="modal-header">
+					<h1 class='h1-1 modal-title '>Login</h1>
+					
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				
+				<div class="modal-body">
+					<form method=POST id="loginForm">
+
+						<div class='row'>
+							
+							<div class='col-12 mt-4'>
+								<label for="id_username_login">Username</label>
+								<input class='form-control' value='' type="text" name="username" required id="id_username_login">
+							</div>
+		
+							<div class='col-12 mt-4'>
+								<label for="id_password_login">Password</label>
+								<input class='form-control' value='' type="text" required name="password" id="id_password_login">
+							</div>
+
+
+						</div>  
+
+						<button class="btn-cust mt-4" id="loginBtn">
+							<span class="btn-cust-content">
+								Login
+							</span>
+						</button>
+
+						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#newUserModal">
+							<span class="btn-cust-content">
+								SignUp
+							</span>
+						</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+		<div class="modal-dialog dark">
+		  	<div class="modal-content">
+				<h1 class='h1-1 modal-title '>Checking on That!</h1>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="functionLoader1" class="functionloader">
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+								<div class="block"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

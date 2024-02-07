@@ -28,8 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'calendar_app',
     'corsheaders',
+    'logs',
+    'user_auth'
 ]
 
 MIDDLEWARE = [
@@ -46,11 +49,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'calendar_project.urls'
 CORS_ORIGIN_WHITELIST = []
 CORS_ORIGIN_ALLOW_ALL = True
-#CORS_ORIGIN_WHITELIST = [
-#    'https://softsubversion.com',
-#    'http://softsubversion.com'
-#]
-#
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

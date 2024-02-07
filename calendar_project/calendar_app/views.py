@@ -10,10 +10,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import json
 from .serializers import EventSerializer
-from rest_framework.renderers import JSONRenderer
-#from .serializers import ImageSerializer
+
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
+#check token and session id
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+# checks if the user is auth
+@permission_classes([IsAuthenticated])
 def clandar(request, year, month):
     last_Day = month_last_day(year, month)
     request_month = int(month)
@@ -44,6 +50,10 @@ def clandar(request, year, month):
     return JsonResponse(data)
 
 @api_view(['POST'])
+#check token and session id
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+# checks if the user is auth
+@permission_classes([IsAuthenticated])
 def add_event(request):
     if request.method == 'POST':
         event_object = Event.objects.all()
@@ -65,81 +75,17 @@ def add_event(request):
             event_type = event_type,
             details = details
         )
-
-
         resp = {'returned':'success'}
-        
         return Response(resp)
     else:
-
-        
         resp = {'returned':'wrong request method'}
-        
         return Response(resp)
-
+    
+@api_view(['DELETE'])
+#check token and session id
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+# checks if the user is auth
+@permission_classes([IsAuthenticated])
 def delete_event(request, id):
     
     return HttpResponse()
- 
-def index(request):
-    users = User.objects.all()
-    event_list = Event.objects.all()
-    event_list = Event.objects.order_by('date')
-    month0, month1, month2, cal, year_new, todays_date, cal_date = cal_gen()
-    month1 = month1.title()
-    month_number = list(calendar.month_name).index(month1)
-    month_number = int(month_number) 
-    new_template = None
-
-    next_year = year_new + 1
-    last_year = year_new - 1
-    
-    
-    # Form validation and approval workflow
-    if request.method == 'POST':
-        event_form = EventForms(data=request.POST)
-        if event_form.is_valid():
-            
-            new_event = event_form.save(commit=False)
-            
-            new_event.save()
-            
-            return redirect('index')
-        
-    if request.method == 'PUT':
-        event_form = EventForms(data=request.PUT)
-        if event_form.is_valid():
-            
-            new_event = event_form.save(commit=False)
-            
-            new_event.save()
-            
-            return redirect('index')
-            
-    elif request.method == 'DELETE':
-            
-        event_id = request.GET.get('id')
-        if event_id:
-            event  = Event.objects.get(pk=event_id)
-            event.delete()
-            
-            return redirect('index')
-
-    else: 
-        event_form = EventForms()
-        
-    return render(request, 'index.html', {
-        
-        'year': year_new,
-        'month1': month1,
-        'month0':month0,
-        'month2' :month2,
-        'cal': cal,
-        'event_list':event_list,
-        'last_year': last_year,
-        'next_year': next_year,
-        'todays_date': todays_date,
-        'cal_date': cal_date, 
-        'form1': event_form,
-        'users': users
-    })
