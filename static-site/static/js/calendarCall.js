@@ -59,9 +59,12 @@ function getDateSubmit() {
 // ------------ API Calls ----------------//
 // api Get for a todays date, aslo the default selection when opening the page
 function getTodaysDate() {
+	console.log(document.cookie.split('csrftoken=')[1], document.cookie.split('token=')[1])
 	fetch((calURL + year + "/" + month + "/"), {
 		method: "GET",
 		headers: {
+			'Authorization': 'Token ' + document.cookie.split('token=')[1],
+			'X-CSRFToken': document.cookie.split('token=')[1],
 			"Content-Type": "application/json"
 		},
 	})
@@ -76,6 +79,8 @@ function getGivenDate(givenYear, givenMonth) {
 	fetch((calURL + givenYear + "/" + givenMonth + "/"), {
 		method: "GET",
 		headers: {
+			'Authorization': 'Token ' + document.cookie.split('token=')[1],
+			'X-CSRFToken': document.cookie.split('token=')[1],
 			"Content-Type": "application/json"
 		},
 	})
@@ -90,6 +95,8 @@ function getWVDate(givenYear, givenMonth) {
 	fetch((calURL + givenYear + "/" + givenMonth + "/"), {
 		method: "GET",
 		headers: {
+			'Authorization': 'Token ' + document.cookie.split('token=')[1],
+			'X-CSRFToken': document.cookie.split('token=')[1],
 			"Content-Type": "application/json"
 		},
 	})
@@ -107,6 +114,8 @@ function getPreWVDate(givenYear, givenMonth) {
 	fetch((calURL + givenYear + "/" + givenMonth + "/"), {
 		method: "GET",
 		headers: {
+			'Authorization': 'Token ' + document.cookie.split('token=')[1],
+			'X-CSRFToken': document.cookie.split('token=')[1],
 			"Content-Type": "application/json"
 		},
 	})
@@ -121,7 +130,7 @@ function getPreWVDate(givenYear, givenMonth) {
 } 
 
 function dynamicEventModal(eventData){
-	console.log(eventData);
+	//console.log(eventData);
 	const titleLabel = document.getElementById('eventModalLabel');
 	const dateLabel = document.getElementById('eventModalDate');
 	const startLabel = document.getElementById('eventModalStart');
@@ -129,7 +138,7 @@ function dynamicEventModal(eventData){
 	const typeLabel = document.getElementById('eventModalType');
 	const detailSection = document.getElementById('eventModaldetails');
 	const deleteBtn = document.getElementById('deleteEventBtn');
-	const update = document.getElementById('updateEventBtn');
+	const update = document.getElementById('updateModalBtn');
 	let eventID = eventData.id;
 	titleLabel.innerHTML = eventData.subject;
 	dateLabel.innerHTML = eventData.date;
@@ -149,7 +158,7 @@ function dynamicEventModal(eventData){
 		};
 	};
 	deleteBtn.setAttribute("onclick", `deleteEvent(${eventID})`);
-	update.setAttribute("onclick", `updateEvent(${eventID})`);
+	update.setAttribute("onclick", `updateEvent(${JSON.stringify(eventData)})`);
 	
 	typeLabel.innerHTML = eventData.event_type
 	detailSection.innerHTML = eventData.details

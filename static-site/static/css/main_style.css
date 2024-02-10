@@ -15,7 +15,6 @@
 
   --lingrand: linear-gradient(123deg, #00BF72, #008F56, #547509, #2A3B05, #00273D, #003A5C, #004d7a);
 
-
   --bg-1:#CACACA;
   --bg-2:#959595;
   --bg-3:#616161;
@@ -23,6 +22,9 @@
   --bg-5:#212121;
   --bg-6:#161616;
   --bg-7:#0B0B0B;
+  --bg-op-1:#616161a6;
+  --bg-op-2:#161616a6;
+  --bg-op-3:#000000a6;
 
   --mc-1:#BFEFDC;
   --mc-2:#80DFB9;
@@ -71,7 +73,9 @@ html {
 }
 
 .section {
+  position: relative;
   height: 90vh;
+  overflow: hidden;
 }
 
 
@@ -120,4 +124,16 @@ Tools and useful stuff
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: bold;
+}
+
+.navbar .navbar-toggler:focus, .navbar-toggler-icon, .custom-toggler.navbar-toggler{
+  color: var(--mc-2)!important;
+  background-color:  var(--mc-3)!important;
+  border-radius: 3px;
+
+  border-color: var(--bg-2)!important;
+}
+
+.hidden-start {
+  display: none;
 }

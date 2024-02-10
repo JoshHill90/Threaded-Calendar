@@ -16,9 +16,7 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
-#check token and session id
 @authentication_classes([SessionAuthentication, TokenAuthentication])
-# checks if the user is auth
 @permission_classes([IsAuthenticated])
 def clandar(request, year, month):
     last_Day = month_last_day(year, month)
@@ -50,9 +48,7 @@ def clandar(request, year, month):
     return JsonResponse(data)
 
 @api_view(['POST'])
-#check token and session id
 @authentication_classes([SessionAuthentication, TokenAuthentication])
-# checks if the user is auth
 @permission_classes([IsAuthenticated])
 def add_event(request):
     if request.method == 'POST':
@@ -82,10 +78,31 @@ def add_event(request):
         return Response(resp)
     
 @api_view(['DELETE'])
-#check token and session id
 @authentication_classes([SessionAuthentication, TokenAuthentication])
-# checks if the user is auth
 @permission_classes([IsAuthenticated])
 def delete_event(request, id):
-    
-    return HttpResponse()
+    event_to_delete = Event.objects.get(id=id)
+    event_to_delete.delete()
+    return HttpResponse({'response': 'success'})
+
+
+@api_view(['PATCH'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_event(request, id):
+    if request.method == 'PATCH':
+        data = json.loads(request.body)
+        formData  = data.get('data')
+        event_object = Event.objects.get(id=id)
+        event_object.subject = formData.get('subject')
+        event_object.date = formData.get('date')
+        event_object.start = formData.get('start')
+        event_object.end = formData.get('end')
+        event_object.event_type = formData.get('event_type')
+        event_object.details = formData.get('details')
+        event_object.save()
+        resp = {'returned':'success'}
+        return Response(resp)
+    else:
+        resp = {'returned':'wrong request method'}
+        return Response(resp)

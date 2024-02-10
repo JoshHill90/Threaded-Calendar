@@ -2,42 +2,54 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel='stylesheet' href="/static/css/main_style.css">
+	<link rel='stylesheet' href="/static/css/main_style.css">
 	<link rel='stylesheet' href="/static/css/btn.css">
 	<link rel='stylesheet' href="/static/css/month.css">
 	<link rel='stylesheet' href="/static/css/modal.css">
 	<link rel='stylesheet' href="/static/css/week.css">
 	<link rel='stylesheet' href="/static/css/day.css">
 	<link rel='stylesheet' href="/static/css/toggle.css">
+	<link rel='stylesheet' href="/static/css/back-drop.css">
 	<link rel='stylesheet' href="/static/css/function-load.css">
 	<link rel='stylesheet' href="/static/css/scrollBar.css">
-    
-	<script src="/static/js/calendarCall.js"></script>
-    <title>    
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+	<link rel="manifest" href="/static/icons/site.webmanifest">
+	<link rel="mask-icon" href="/static/icons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="/static/icons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#9f00a7">
+	<meta name="msapplication-config" content="/static/icons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
 
-    </title>
+	<script src="/static/js/calendarCall.js"></script>
+		<title>    
+			Threaded Calender
+		</title>
 </head>
 <body class='body-main'>
+	
 	<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
-		  <a class="navbar-brand" href="#">SilkThread</a>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<a class="navbar-brand" href="#">SilkThread</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarNav">
+			</button>
+			<div class="collapse navbar-collapse " id="navbarNav">
 			<ul class="navbar-nav">
 
 				<li class="nav-item">
 					<a class="nav-link" aria-current="page" href="/">Today</a>
 				</li>
 
-			  <li class="nav-item">
+				<li class="nav-item">
 				
 				<div class="row g-3">					
 					<!-- large 30 day calendar control -->
@@ -130,30 +142,35 @@
 							</span>
 						</button>
 					</div>
+
 					<div class="col-auto">
-						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#newUserModal">
+						<button class="btn-cust" id='logIn' type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
 							<span class="btn-cust-content">
-								SignUp
+								<i class="fa-solid fa-user"></i>
 							</span>
 						</button>
 					</div>
+
 					<div class="col-auto">
-						<button class="btn-cust" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+						<button class="btn-cust"  id="logOut" onclick="logout()"  type="button">
 							<span class="btn-cust-content">
-								Login
+								<i class="fa-solid fa-right-from-bracket"></i>
 							</span>
 						</button>
 					</div>
 				</div>
-			  </li>
+				</li>
 
 			</ul>
-		  </div>
+			</div>
 		</div>
 	</nav>
 	<!-- large 30 day calendar -->
-	<div class="container-fluid section">
-
+	<div class="container-fluid section ">
+		<div class="spinner-2 "></div>
+			<div class="spinner "></div>
+			
+		
 		<div id="mvCal" class="mt-4 h-100">
 			<div class="month-view">
 				<!--- |main box|	|	    labe for box		   | |div row and end of row| |endLab|endbox|	-->
@@ -301,94 +318,91 @@
 			</div>
 		</div>
 	</div>
-<!-- Button trigger modal -->
-  
-  <!-- Modal -->
-  <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div id='modal-event-view' class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="eventModalLabel">Modal title</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-4">
-						<p class="p-l">Date</p>
-						<p class="p-p" id="eventModalDate"></p>
-					</div>
-					<div class="col-4">
-						<p class="p-l">Event Start</p>
-						<p class="p-p" id="eventModalStart"></p>
-					</div>
-					<div class="col-4">
-						<p class="p-l">Event End</p>
-						<p class="p-p" id="eventModalEnd"></p>
-					</div>
-					<div class="col-6">
-						<p class="p-l">Event Type</p>
-						<p class="p-p" id="eventModalType"></p>
-					</div>
-					<div class="col-12">
-						<p class="p-l">Details</p>
-						<div class="overflow-auto">
-							<p class="p-p" id="eventModaldetails"></p>
+	<!-- Modal for selected event -->
+	<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div id='modal-event-view' class="modal-content">
+				<div class="modal-header border-0">
+					<h1 class="modal-title fs-5" id="eventModalLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-4">
+							<p class="p-l">Date</p>
+							<p class="p-p" id="eventModalDate"></p>
 						</div>
-						
-					</div>
+						<div class="col-4">
+							<p class="p-l">Event Start</p>
+							<p class="p-p" id="eventModalStart"></p>
+						</div>
+						<div class="col-4">
+							<p class="p-l">Event End</p>
+							<p class="p-p" id="eventModalEnd"></p>
+						</div>
+						<div class="col-6">
+							<p class="p-l">Event Type</p>
+							<p class="p-p" id="eventModalType"></p>
+						</div>
+						<div class="col-12">
+							<p class="p-l">Details</p>
+							<div class="overflow-auto">
+								<p class="p-p" id="eventModaldetails"></p>
+							</div>
+							
+						</div>
 
+					</div>
+				</div>
+				<div class="modal-footer border-0">
+					<button class="btn-cust" type="button" id="updateModalBtn" data-bs-toggle="modal" data-bs-target="#updateEventModal">
+						<span class="btn-cust-content">
+							Update
+						</span>
+					</button>
+
+					<button type="button" id='deleteEventBtn' class="btn-cust">
+						<span class="btn-cust-content">
+							Delete
+						</span>
+					</button>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" id="updateEventBtn" class="btn-cust" data-bs-dismiss="modal">
-					<span class="btn-cust-content">
-						Update
-					</span>
-				</button>
-				<button type="button" id='deleteEventBtn' class="btn-cust">
-					<span class="btn-cust-content">
-						Delete
-					</span>
-				</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<div id="functionLoader1" class="functionloader">
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
-					<div class="block"></div>
+			<div class="row">
+				<div class="col-12">
+					<div id="functionLoader1" class="functionloader  hidden-start">
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+						<div class="block"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-  </div>
 
-
+	<!-- Modal for new event -->
 	<div class="modal fade" id="newEventModal" tabindex="-1" aria-labelledby="newEventModalLabel" aria-hidden="true">
 		<div class="modal-dialog dark">
-		  	<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-content">
+				<div class="modal-header border-0">
 					<h1 class='h1-1 modal-title '>Add New Event</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method=POST id="NewEventForm">
-						
-							
 
 						<div class='row'>
 							<div class='col-12'>
@@ -396,7 +410,6 @@
 								<input class='form-control' value='' type="text" name="title" maxlength="255" required="" id="id_title">
 							</div>
 
-							
 							<div class='col-4 mt-4'>
 								<label for="id_date">Date:</label>
 								<input class='form-control' type="date" name="date" required="" id="id_date">
@@ -447,16 +460,17 @@
 		</div>
 	</div>
 
+	<!-- Modal for new user -->
 	<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
 		<div class="modal-dialog dark">
-		  	<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-content">
+				<div class="modal-header border-0">
 					<h1 class='h1-1 modal-title '>Add New Event</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method=POST id="NewUserForm">
-
+						
 						<div class='row'>
 							<div class='col-12'>
 								<label for="id_email">Email:</label>
@@ -492,10 +506,79 @@
 		</div>
 	</div>
 
+	<!-- Modal for update event -->
+	<div class="modal fade" id="updateEventModal" tabindex="-1" aria-labelledby="updateEventModalLabel" aria-hidden="true">
+		<div class="modal-dialog dark">
+				<div class="modal-content">
+				<div class="modal-header border-0">
+					<h1 class='h1-1 modal-title '>Update evente</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method=POST id="updateEventForm">
+						<input class='form-control' value='' type="text" name="id_update" maxlength="255" required id="id_id_update" hidden>
+
+						<div class='row'>
+							<div class='col-12'>
+								<label for="id_title_update">Title:</label>
+								<input class='form-control' value='' type="text" name="title_update" maxlength="255" required id="id_title_update">
+							</div>
+
+							
+							<div class='col-4 mt-4'>
+								<label for="id_date_update">Date:</label>
+								<input class='form-control' type="date" name="date_update" required id="id_date_update">
+							</div>
+		
+							<div class='col-4 mt-4'>
+								<label for="id_start_update">Start:</label>
+								<input class='form-control' type="time" name="start_update" id="id_start_update">
+							</div>
+		
+							<div class='col-4 mt-4'>
+								<label for="id_end_update">End:</label>
+								<input class='form-control' type="time" name="end_update" id="id_end_update">
+							</div>
+		
+							<div class='col-12 mt-4'>
+								<label for="id_event_type_update">Event type:</label>
+								<select class='form-control' type="select" name="event_type_update" maxlength="50" id="id_event_type_update">
+									<option value="Meeting">Meeting</option>
+									<option value="All Day Event">All Day Event</option>
+									<option value="Time Block">Time Block</option>
+									<option value="Busy/Away">Busy/Away</option>
+									<option value="Timed Event">Timed Event</option>
+								</select>
+							</div>
+		
+							<div class='col-12 mt-4'>
+							
+								<label for="id_details_update">Details:</label>
+								<textarea 
+								class='form-control'
+								rows='6'
+								name="details_update" 
+								maxlength="500" 
+								id="id_details_update"></textarea>
+							</div>
+						</div>  
+
+						<button class="btn-cust mt-4" id="updateEventBtn">
+							<span class="btn-cust-content">
+								Save
+							</span>
+						</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal for login-->
 	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog dark">
-		  	<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-content">
+				<div class="modal-header border-0">
 					<h1 class='h1-1 modal-title '>Login</h1>
 					
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -513,7 +596,8 @@
 		
 							<div class='col-12 mt-4'>
 								<label for="id_password_login">Password</label>
-								<input class='form-control' value='' type="text" required name="password" id="id_password_login">
+								<input class='form-control' value='' type="password" required name="password" id="id_password_login">
+								<button id="seePswd" class="btn-cust mt-3"><span class="btn-cust-content"><i id="eye" class="fa-solid fa-eye"></i></span></button>
 							</div>
 
 
@@ -537,9 +621,10 @@
 		</div>
 	</div>
 
+<!-- Modal for loading user -->
 	<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
 		<div class="modal-dialog dark">
-		  	<div class="modal-content">
+				<div class="modal-content">
 				<h1 class='h1-1 modal-title '>Checking on That!</h1>
 				<div class="modal-body">
 					<div class="row">
@@ -574,6 +659,8 @@
 	<script src="https://kit.fontawesome.com/00f4d71521.js" crossorigin="anonymous"></script>
 	<script src="/static/js/calenderFunctions.js"></script>
 	<script src="/static/js/toggle.js"></script>
+	<script src="/static/js/userFunctions.js"></script>
+	<script src="/static/js/paswrdTg.js"></script>
 	
 </body>
 </html>

@@ -1,4 +1,6 @@
 .week {
+	background:linear-gradient(to right bottom, var(--bg-op-1) 0%, var( --bg-op-2) 25%, var(--bg-op-3) 65%);
+	border-radius: 8px 8px 0 0;
 	height: 100%;
 	position: relative;
 	display: grid;
@@ -15,13 +17,13 @@
 .week div{
 	position: relative;
 	height: 80%;
-	border-radius: 8px;
+	border-radius: 8px 8px 0 0;
 }
 
 .wv-label{
 	position: relative;
 	border: none;
-	background-color: var(--mc-4);
+	background:linear-gradient(to right bottom, var(--mc-4) 0%, var(--mc-5) 35%, var(--mc-7));
 	max-height: 5%;
 }
 

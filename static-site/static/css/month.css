@@ -6,6 +6,7 @@
 	grid-template-rows: repeat(6, 1fr);
 	grid-column-gap: 3px;
 	grid-row-gap: 3px;
+	background:linear-gradient(to right bottom, var(--bg-op-1) 0%, var( --bg-op-2) 25%, var(--bg-op-3) 65%);
 }
 
 .mv-01 { grid-area: 1 / 1 / 2 / 2; }
@@ -56,6 +57,7 @@
 	border:1px solid  var(--mc-2);
 	height: 100%;
 	border-radius: 5px;
+	border-radius: 5px 5px 0 0!important;
 }
 
 .mv-label{
@@ -68,6 +70,7 @@
 		var(--mc-5) 94.3%
 	  );
 	max-height: 25%;
+	
 }
 
 
@@ -96,8 +99,7 @@
 }
 
 .event_icon {
-	color: var(--mc3-3); 
-
+	color: var(--mc3-2); 
 }
 
 .event_col {
