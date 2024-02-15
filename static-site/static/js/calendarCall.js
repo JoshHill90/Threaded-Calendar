@@ -142,19 +142,19 @@ function dynamicEventModal(eventData){
 	let eventID = eventData.id;
 	titleLabel.innerHTML = eventData.subject;
 	dateLabel.innerHTML = eventData.date;
-	if (eventData.start.split(":")[0] > 12 ){
-		startLabel.innerHTML = `${((eventData.start.split(":")[0]) - 11)}:${eventData.start.split(":")[0]} PM`;
+	if (parseInt(eventData.start.split(":")[0]) >= 12 ){
+		startLabel.innerHTML = `${((parseInt(eventData.start.split(":")[0]) - 12) || 12)}:${eventData.start.split(":")[1]} PM`;
 	} else {
-		startLabel.innerHTML = `${parseInt(eventData.start.split(":")[0])}:${eventData.start.split(":")[0]} AM`;
+		startLabel.innerHTML = `${parseInt(eventData.start.split(":")[0])}:${eventData.start.split(":")[1]} AM`;
 	};
 	
 	if (eventData.event_type == "All Day Event") {
-		endLabel.innerHTML = "-:-- All Day"
+		endLabel.innerHTML = "-:-- All Day";
 	} else {
-		if (eventData.end.split(":")[0] > 12 ){
-			endLabel.innerHTML = `${((eventData.end.split(":")[0]) - 12)}:${eventData.end.split(":")[0]} PM`;
+		if (parseInt(eventData.end.split(":")[0]) >= 12 ){
+			endLabel.innerHTML = `${((parseInt(eventData.end.split(":")[0]) - 12) || 12)}:${eventData.end.split(":")[1]} PM`;
 		} else {
-			endLabel.innerHTML = `${parseInt(eventData.end.split(":")[0])}:${eventData.end.split(":")[0]} AM`;
+			endLabel.innerHTML = `${parseInt(eventData.end.split(":")[0])}:${eventData.end.split(":")[1]} AM`;
 		};
 	};
 	deleteBtn.setAttribute("onclick", `deleteEvent(${eventID})`);
