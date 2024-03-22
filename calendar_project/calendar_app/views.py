@@ -161,3 +161,5 @@ def update_event(request, id):
         logging.error("Error - wrong request method")
         
         return Response(resp)
+    
+    
