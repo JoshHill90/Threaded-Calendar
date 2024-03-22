@@ -1,3 +1,0 @@
-              - name: Upload Tool Results To Pixeebot
-                uses: pixee/upload-tool-results-action@v1.0.1
-            
