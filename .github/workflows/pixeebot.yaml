@@ -1,3 +1,14 @@
-ai:
-  allow_llm_access: true
+name: Pixeebot Workflow
 
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  ai:
+    runs-on: ubuntu-latest
+    allow_llm_access: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
