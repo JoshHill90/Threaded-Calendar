@@ -11,7 +11,7 @@ from io import StringIO
 from itertools import chain
 from types import SimpleNamespace
 from unittest import TestCase, skipIf, skipUnless
-from xml.dom.minidom import Node, parseString
+from xml.dom.minidom import Node
 
 from asgiref.sync import iscoroutinefunction
 
@@ -27,6 +27,7 @@ from django.template import Template
 from django.test.signals import template_rendered
 from django.urls import get_script_prefix, set_script_prefix
 from django.utils.translation import deactivate
+import defusedxml.minidom
 
 try:
     import jinja2
@@ -681,8 +682,8 @@ def compare_xml(want, got):
         got = wrapper % got
 
     # Parse the want and got strings, and compare the parsings.
-    want_root = first_node(parseString(want))
-    got_root = first_node(parseString(got))
+    want_root = first_node(defusedxml.minidom.parseString(want))
+    got_root = first_node(defusedxml.minidom.parseString(got))
 
     return check_element(want_root, got_root)
 
